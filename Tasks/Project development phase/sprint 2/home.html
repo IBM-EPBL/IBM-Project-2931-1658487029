@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <title>News</title>
+  <link rel="stylesheet" href="{{url_for('static',filename='css/home.css')}}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../static/css/home.css">
+</head>
+<body>
+  
+    <nav>
+      <input id="nav-toggle" type="checkbox">
+      <!--<div class="logo">world<strong>News</strong></div>-->
+      <ul class="links">
+        <li><a href="{{url_for('home')}}">Home</a></li>
+        <li><a href="{{url_for('sports')}}">Sports </a></li>
+        <li><a href="{{url_for('entertainment')}}">Entertainment  </a></li>
+        <li><a href="{{url_for('technology')}}">Technology </a></li>
+        <li><a href="{{url_for('science')}}">Science </a></li>
+        <li><a href="{{url_for('business')}}">Business </a></li>
+        <li><a href="{{url_for('world')}}">world </a></li>
+         
+        <li><a href="{{url_for('logout')}}">Logout</a></li>
+
+      </ul>
+      <label for="nav-toggle" class="icon-burger">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </label>
+    </nav>
+
+    <br><br> <br> 
+   
+  
+    <div class="main">
+
+      <br>
+      <form action="/search" method="POST">
+        <input type="text" name="search" class="search" placeholder="Search News">
+        <input type="submit" name="submit" class="submit" value="Search">
+      </form>
+       
+      <br><br>
+       
+      <ul class="cards">
+        {%for article in articles%}
+
+            <li class="cards_item">
+              <div class="card">
+                <div class="card_image "><img class="card-img-top" src="{{article.urlToImage}}"></div>
+                <div class="card_content">
+                  <h2 class="card_title">{{article.title}}</h2>
+                  <br>
+                  <B class="card_text">{{article.description}}</B>
+                  <p class="card_text">{{article.content}}</p>
+                  <br>
+                  <p class="card_text">Date :{{article.publishedAt}}</p>
+                  <button class="btn card_btn"><a href="{{article.url}}">Read More</a></button>
+                      <div class="share text-center"  style="text-align:cenetr ;">
+                          <a href="https://www.facebook.com/sharer/sharer.php?u={{article.url}}" ><i class="fa fa-facebook-square"  style="font-size:40px;padding-right: 10px;"></i></a>
+                          <a href="mailto:?subject={{article.title}} &body={{article.url}}"><i class="fa fa-envelope" style="font-size:40px;padding-right: 10px;"></i></a>
+                          <a href="https://twitter.com/share?url={{article.url}}&text={{article.title}}" ><i class="fa fa-twitter" style="font-size:40px;padding-right: 10px;"></i></a>
+                          <a href="https://www.linkedin.com/shareArticle?url={{article.urlToImage}}&title={{article.title}}&summary={{article.description}}&source={{article.url}}"><i class="fa fa-linkedin-square" style="font-size:40px;padding-right: 10px;"></i></a>
+                          <a href="whatsapp://send?text={{article.url}}" data-action="share/whatsapp/share"><i class="fa fa-whatsapp" style="font-size:40px;padding-right: 10px;"></i></a>
+                      </div>
+                </div>
+              </div>
+            </li>
+           
+            {%endfor%}
+      </ul>
+    </div>
+   
+ 
+     
+ 
+ 
+  
+</body>
+</html>
